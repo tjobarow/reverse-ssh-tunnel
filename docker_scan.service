@@ -1,13 +1,13 @@
 [Unit]
-Description = Reverse ssh tunnel
+Description = Start docker containers
 After =  network-online.target 
 #Requires
 
 [Service]
 User = root
 ExecStartPre=/bin/sleep 120
-ExecStart = /usr/bin/autossh -M 0 -q -N -o "PubKeyAuthentication=yes" -o "PasswordAuthentication=no" -o "ExitOnForwardFailure=yes" -o "ServerAliveInterval 30" -o "ServerAliveCountMax 3"  -i /home/[LOCAL USER]/.ssh/id_rsa -R [REMOTE PORT]:localhost:22 -l [REMOTE LOGIN] [REMOTE HOST]
-ExecStop= /usr/bin/killall autossh
+ExecStart = "/home/scanuser/gvm-data/run_scan_containers.sh"
+ExecStop= "/home/scanuser/gvm-data/docker_kill.sh"
 RestartSec=5
 Restart=always
 
